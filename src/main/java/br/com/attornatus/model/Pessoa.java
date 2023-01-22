@@ -11,6 +11,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "pessoas")
 public class Pessoa {
@@ -20,7 +22,8 @@ public class Pessoa {
 	private Long id;
 	private String nome;
 	private String dataNascimento;
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "pessoa")
+	@JsonIgnore
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "pessoaId")
 	private List<Endereco> endereco;
 
 	public Pessoa() {
@@ -30,6 +33,10 @@ public class Pessoa {
 		this.nome = nome;
 		this.dataNascimento = dataNascimento;
 		this.endereco = new ArrayList<>();
+	}
+	
+	public void addEndereco(Endereco endereco) {
+		this.endereco.add(endereco);
 	}
 	
 	public Long getId() {

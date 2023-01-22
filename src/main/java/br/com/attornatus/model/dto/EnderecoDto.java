@@ -10,15 +10,17 @@ public class EnderecoDto {
 	private String cep;
 	private String numero;
 	private String cidade;
+	private String pessoaNome;
 
 	public EnderecoDto(Endereco endereco) {
 		this.logradouro = endereco.getLogradouro();
 		this.cep = endereco.getCep();
 		this.numero = endereco.getNumero();
 		this.cidade = endereco.getCidade();
+		this.pessoaNome = endereco.getPessoa().getNome();
 	}
-	
-	public static Page<EnderecoDto> converter(Page<Endereco> endereco){
+
+	public static Page<EnderecoDto> converter(Page<Endereco> endereco) {
 		return endereco.map(EnderecoDto::new);
 	}
 
@@ -37,4 +39,9 @@ public class EnderecoDto {
 	public String getCidade() {
 		return cidade;
 	}
+
+	public String getPessoaNome() {
+		return pessoaNome;
+	}
+
 }

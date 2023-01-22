@@ -19,16 +19,17 @@ public class Endereco {
 	private String numero;
 	private String cidade;
 	@ManyToOne
-	private Pessoa pessoa;
+	private Pessoa pessoaId;
 
 	public Endereco() {
 	}
 	
-	public Endereco(String logradouro, String cep, String numero, String cidade) {
+	public Endereco(String logradouro, String cep, String numero, String cidade, Pessoa pessoa) {
 		this.logradouro = logradouro;
 		this.cep = cep;
 		this.numero = numero;
 		this.cidade = cidade;
+		this.pessoaId = pessoa;
 	}
 	
 	public Long getId() {
@@ -71,6 +72,10 @@ public class Endereco {
 		this.cidade = cidade;
 	}
 	
+	public Pessoa getPessoa() {
+		return pessoaId;
+	}
+
 	@Override
 	public String toString() {
 		return "Id: " + id +

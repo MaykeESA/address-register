@@ -5,6 +5,8 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 import br.com.attornatus.model.Endereco;
+import br.com.attornatus.model.Pessoa;
+import br.com.attornatus.repository.PessoaRepository;
 
 public class EnderecoForm {
 
@@ -16,16 +18,24 @@ public class EnderecoForm {
 	private String numero;
 	@NotBlank @NotNull @NotEmpty
 	private String cidade;
+	@NotBlank @NotNull @NotEmpty
+	private String idPessoa;
 	
-	public EnderecoForm(String logradouro, String cep, String numero, String cidade) {
+	public EnderecoForm() {
+	}
+	
+	public EnderecoForm(String logradouro, String cep, String numero, String cidade, String idPessoa) {
 		this.logradouro = logradouro;
 		this.cep = cep;
 		this.numero = numero;
 		this.cidade = cidade;
+		this.idPessoa = idPessoa;
 	}
 
-	public Endereco converter() {
-		return new Endereco(this.logradouro, this.cep, this.numero, this.cidade);
+	public Endereco converter(PessoaRepository pessoaRep) {
+		long id = Long.parseLong(idPessoa);
+		Pessoa pessoa = pessoaRep.findById(id).get();
+		return new Endereco(this.logradouro, this.cep, this.numero, this.cidade, pessoa);
 	}
 	
 	public String getLogradouro() {
@@ -42,5 +52,9 @@ public class EnderecoForm {
 
 	public String getCidade() {
 		return cidade;
+	}
+
+	public long getIdPessoa() {
+		return Long.parseLong(idPessoa);
 	}
 }

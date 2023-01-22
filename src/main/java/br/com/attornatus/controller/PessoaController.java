@@ -23,7 +23,6 @@ import org.springframework.web.util.UriComponentsBuilder;
 import br.com.attornatus.model.Pessoa;
 import br.com.attornatus.model.dto.PessoaDto;
 import br.com.attornatus.model.form.PessoaForm;
-import br.com.attornatus.repository.EnderecoRepository;
 import br.com.attornatus.repository.PessoaRepository;
 
 @RestController
@@ -32,9 +31,6 @@ public class PessoaController {
 
 	@Autowired
 	private PessoaRepository pessoaRep;
-	
-	@Autowired
-	private EnderecoRepository enderecoRep;
 	
 	@GetMapping
 	public Page<PessoaDto> listar(@PageableDefault(sort = "id", direction = Direction.ASC, page = 0, size = 3) Pageable paginacao){
@@ -52,29 +48,24 @@ public class PessoaController {
 	}
 	
 	@GetMapping("/{id}")
-	public ResponseEntity<Pessoa> especifico(@PathVariable Long id){
+	public ResponseEntity<PessoaDto> especifico(@PathVariable Long id){
 		Optional<Pessoa> pessoa = this.pessoaRep.findById(id);
 		if(pessoa.isPresent()) {
-			return ResponseEntity.ok(pessoa.get());
+			return ResponseEntity.ok(new PessoaDto(pessoa.get()));
 		}
 		
 		return ResponseEntity.notFound().build();
 	}
 	
 	@PutMapping("/{id}")
-	public ResponseEntity<Pessoa> atualizar(@PathVariable Long id, @RequestBody @Valid PessoaForm form){
+	public ResponseEntity<PessoaDto> atualizar(@PathVariable Long id, @RequestBody @Valid PessoaForm form){
 		Optional<Pessoa> pessoaOpt = this.pessoaRep.findById(id);
 		
 		if(pessoaOpt.isPresent()) {
 			Pessoa pessoa = form.atualizar(id, this.pessoaRep);
-			return ResponseEntity.ok(pessoa);
+			return ResponseEntity.ok(new PessoaDto(pessoa));
 		}
 		
 		return ResponseEntity.notFound().build();
-	}
-	
-	@GetMapping("/hello")
-	public String hello() {
-		return "Hello World!";
 	}
 }
