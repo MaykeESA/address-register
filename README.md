@@ -27,6 +27,7 @@
 
 * Nome
 * Data de nascimento
+* Endereço
 
 <h3> 📍 - Endereço: </h3>
 
