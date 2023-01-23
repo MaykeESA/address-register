@@ -72,8 +72,12 @@ public class Endereco {
 		this.cidade = cidade;
 	}
 	
-	public Pessoa getPessoa() {
+	public Pessoa getPessoaId() {
 		return pessoaId;
+	}
+
+	public void setPessoaId(Pessoa pessoaId) {
+		this.pessoaId = pessoaId;
 	}
 
 	@Override

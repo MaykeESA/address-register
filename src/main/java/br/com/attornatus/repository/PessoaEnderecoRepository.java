@@ -3,9 +3,9 @@ package br.com.attornatus.repository;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import br.com.attornatus.model.Endereco;
+import br.com.attornatus.model.PessoaEndereco;
 
 @Repository
-public interface EnderecoRepository extends JpaRepository<Endereco, Long>{
+public interface PessoaEnderecoRepository extends JpaRepository<PessoaEndereco, Long>{
 
 }

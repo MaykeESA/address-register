@@ -17,9 +17,9 @@ public class EnderecoDto {
 		this.cep = endereco.getCep();
 		this.numero = endereco.getNumero();
 		this.cidade = endereco.getCidade();
-		this.pessoaNome = endereco.getPessoa().getNome();
+		this.pessoaNome = endereco.getPessoaId().getNome();
 	}
-
+	
 	public static Page<EnderecoDto> converter(Page<Endereco> endereco) {
 		return endereco.map(EnderecoDto::new);
 	}

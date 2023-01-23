@@ -38,15 +38,6 @@ public class PessoaController {
 		return PessoaDto.converter(pessoas);
 	}
 	
-	@PostMapping
-	public ResponseEntity<PessoaDto> cadastrar(@RequestBody @Valid PessoaForm form, UriComponentsBuilder uriBuilder){
-		Pessoa pessoa = form.converter();
-		this.pessoaRep.save(pessoa);
-		
-		URI uri = uriBuilder.path("/pessoa/{id}").buildAndExpand(pessoa.getId()).toUri();
-		return ResponseEntity.created(uri).body(new PessoaDto(pessoa));
-	}
-	
 	@GetMapping("/{id}")
 	public ResponseEntity<PessoaDto> especifico(@PathVariable Long id){
 		Optional<Pessoa> pessoa = this.pessoaRep.findById(id);
@@ -56,6 +47,22 @@ public class PessoaController {
 		
 		return ResponseEntity.notFound().build();
 	}
+	
+	@PostMapping
+	public ResponseEntity<PessoaDto> cadastrar(@RequestBody @Valid PessoaForm form, UriComponentsBuilder uriBuilder){
+		Pessoa pessoa = form.converter();
+		this.pessoaRep.save(pessoa);
+		
+		URI uri = uriBuilder.path("/pessoa/{id}").buildAndExpand(pessoa.getId()).toUri();
+		return ResponseEntity.created(uri).body(new PessoaDto(pessoa));
+	}
+	
+	/*
+	@PostMapping("/pessoa/{idPessoa}/endereco/{idEndereco}/principal")
+	public ResponseEntity<PessoaDto> enderecoPrincipal(@PathVariable Long idPessoa, @PathVariable Long idEndereco{
+		Optional<Endereco> endereco = 
+	}
+	*/
 	
 	@PutMapping("/{id}")
 	public ResponseEntity<PessoaDto> atualizar(@PathVariable Long id, @RequestBody @Valid PessoaForm form){

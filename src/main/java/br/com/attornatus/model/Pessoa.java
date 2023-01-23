@@ -70,7 +70,7 @@ public class Pessoa {
 	public void setEndereco(List<Endereco> endereco) {
 		this.endereco = endereco;
 	}
-	
+
 	@Override
 	public String toString() {
 		return "Id: " + id + 

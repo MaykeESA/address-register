@@ -20,9 +20,11 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import br.com.attornatus.model.Endereco;
 import br.com.attornatus.model.Pessoa;
+import br.com.attornatus.model.PessoaEndereco;
 import br.com.attornatus.model.dto.EnderecoDto;
 import br.com.attornatus.model.form.EnderecoForm;
 import br.com.attornatus.repository.EnderecoRepository;
+import br.com.attornatus.repository.PessoaEnderecoRepository;
 import br.com.attornatus.repository.PessoaRepository;
 
 @RestController
@@ -35,6 +37,9 @@ public class EnderecoController {
 	@Autowired
 	private PessoaRepository pessoaRep;
 	
+	@Autowired
+	private PessoaEnderecoRepository pessoaEndrecoRep;
+	
 	@GetMapping
 	public Page<EnderecoDto> listar(@PageableDefault(sort = "id", direction = Direction.ASC, page = 0, size = 3) Pageable paginacao){
 		Page<Endereco> endereco = this.enderecoRep.findAll(paginacao);
@@ -43,11 +48,15 @@ public class EnderecoController {
 	
 	@PostMapping
 	public ResponseEntity<EnderecoDto> cadastrar(@RequestBody @Valid EnderecoForm form, UriComponentsBuilder uriBuilder){
-		Optional<Pessoa> pessoa = this.pessoaRep.findById(form.getIdPessoa());
-		if(pessoa.isPresent()) {
-			Endereco endereco = form.converter(pessoaRep);
-			pessoa.get().addEndereco(endereco);
+		Optional<Pessoa> pessoaOpt = this.pessoaRep.findById(form.getIdPessoa());
+		if(pessoaOpt.isPresent()) {
+			Endereco endereco = form.converter(this.pessoaRep);
+			Pessoa pessoa = pessoaOpt.get();
+			PessoaEndereco pessoaEndereco = new PessoaEndereco(pessoa, endereco);	
+			
+			pessoa.addEndereco(endereco);
 			this.enderecoRep.save(endereco);
+			this.pessoaEndrecoRep.save(pessoaEndereco);
 			
 			URI uri = uriBuilder.path("endereco/{id}").buildAndExpand(endereco.getId()).toUri();
 			return ResponseEntity.created(uri).body(new EnderecoDto(endereco));

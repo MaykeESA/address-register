@@ -33,8 +33,7 @@ public class EnderecoForm {
 	}
 
 	public Endereco converter(PessoaRepository pessoaRep) {
-		long id = Long.parseLong(idPessoa);
-		Pessoa pessoa = pessoaRep.findById(id).get();
+		Pessoa pessoa = pessoaRep.findById(this.getIdPessoa()).get();
 		return new Endereco(this.logradouro, this.cep, this.numero, this.cidade, pessoa);
 	}
 	
