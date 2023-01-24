@@ -23,7 +23,7 @@ public class Pessoa {
 	private String nome;
 	private String dataNascimento;
 	@JsonIgnore
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "pessoaId")
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "pessoaId")
 	private List<Endereco> endereco;
 
 	public Pessoa() {

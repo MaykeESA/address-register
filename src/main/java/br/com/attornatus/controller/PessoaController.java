@@ -57,13 +57,6 @@ public class PessoaController {
 		return ResponseEntity.created(uri).body(new PessoaDto(pessoa));
 	}
 	
-	/*
-	@PostMapping("/pessoa/{idPessoa}/endereco/{idEndereco}/principal")
-	public ResponseEntity<PessoaDto> enderecoPrincipal(@PathVariable Long idPessoa, @PathVariable Long idEndereco{
-		Optional<Endereco> endereco = 
-	}
-	*/
-	
 	@PutMapping("/{id}")
 	public ResponseEntity<PessoaDto> atualizar(@PathVariable Long id, @RequestBody @Valid PessoaForm form){
 		Optional<Pessoa> pessoaOpt = this.pessoaRep.findById(id);

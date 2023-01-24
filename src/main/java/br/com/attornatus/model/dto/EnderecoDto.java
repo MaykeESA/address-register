@@ -10,14 +10,14 @@ public class EnderecoDto {
 	private String cep;
 	private String numero;
 	private String cidade;
-	private String pessoaNome;
+	private String residente;
 
 	public EnderecoDto(Endereco endereco) {
 		this.logradouro = endereco.getLogradouro();
 		this.cep = endereco.getCep();
 		this.numero = endereco.getNumero();
 		this.cidade = endereco.getCidade();
-		this.pessoaNome = endereco.getPessoaId().getNome();
+		this.residente = endereco.getPessoaId().getNome();
 	}
 	
 	public static Page<EnderecoDto> converter(Page<Endereco> endereco) {
@@ -40,8 +40,8 @@ public class EnderecoDto {
 		return cidade;
 	}
 
-	public String getPessoaNome() {
-		return pessoaNome;
+	public String getResidente() {
+		return residente;
 	}
 
 }
