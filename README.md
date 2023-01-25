@@ -23,6 +23,47 @@
 * 7 - Poder informar qual endereço é o principal da pessoa 
 
 <br>
+<h2> 📂 Estrutura de pastas: </h2>
+
+```
+├── avaliacao-attornatus
+|   
+|   br.com.attornatus
+|   |
+│   ├── config.validacao/
+|   |   ├── ErroFormularioDto.java
+│   │   └── ErroValidacaoHandler.java
+|   |
+│   ├── controller/
+|   |   ├── EnderecoController.java
+│   │   └── PessoaController.java
+|   |
+│   ├── model/
+│   │   ├── dto/
+|   |   |   ├── EnderecoDto.java
+|   |   |   ├── PessoaDetalhadoDto.java
+|   |   |   └── PessoaDto.java
+|   |   |
+│   │   └── form/
+|   |   |   ├── EnderecoForm.java
+|   |   |   └── PessoaForm.java
+|   |   |
+|   |   ├── Endereco.java
+|   |   ├── Pessoa.java
+|   |   └── Residencia.java
+|   |
+│   ├── repository/
+│   │   ├── EnderecoRepository.java
+│   │   ├── PessoaRepository.java
+│   │   └── ResidenciasRepository.java
+|   |
+│   ├── service/
+│   │   ├── PersistService.java
+|   |
+|   └── AvaliacaoAttornatusApplication.java
+```
+
+<br>
 <h2> 📈 Relacionamento: </h2>
 
 <img height="210em" align="center" src="https://media.discordapp.net/attachments/817401092752932916/1067792868082729080/rounded-in-photoretrica.png"/>
