@@ -7,10 +7,12 @@ import br.com.attornatus.model.Pessoa;
 
 public class PessoaDto {
 
+	private Long id;
 	private String nome;
 	private String dataNascimento;
 
 	public PessoaDto(Pessoa pessoa) {
+		this.id = pessoa.getId();
 		this.nome = pessoa.getNome();
 		this.dataNascimento = pessoa.getDataNascimento();
 	}
@@ -25,5 +27,9 @@ public class PessoaDto {
 
 	public String getDataNascimento() {
 		return dataNascimento;
+	}
+
+	public Long getId() {
+		return id;
 	}
 }

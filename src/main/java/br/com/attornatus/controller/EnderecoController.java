@@ -4,9 +4,12 @@ import java.net.URI;
 import java.util.List;
 import java.util.Optional;
 
+import javax.transaction.Transactional;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort.Direction;
@@ -47,12 +50,14 @@ public class EnderecoController {
 	private PersistService persistService;
 
 	@GetMapping
+	@Cacheable(value = "listar")
 	public Page<EnderecoDto> listar(@PageableDefault(sort = "id", direction = Direction.ASC, page = 0, size = 3) Pageable paginacao) {
 		Page<Endereco> endereco = this.enderecoRep.findAll(paginacao);
 		return EnderecoDto.converter(endereco);
 	}
 
 	@PostMapping
+	@Transactional @CacheEvict(value = "listar", allEntries = true)
 	public ResponseEntity<EnderecoDto> cadastrar(@RequestBody @Valid EnderecoForm form, UriComponentsBuilder uriBuilder) {
 		Optional<Pessoa> pessoaOpt = this.pessoaRep.findById(form.getIdPessoa());
 		

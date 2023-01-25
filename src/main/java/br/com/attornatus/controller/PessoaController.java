@@ -5,9 +5,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import javax.transaction.Transactional;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort.Direction;
@@ -46,6 +49,7 @@ public class PessoaController {
 	private PersistService persistService;
 
 	@GetMapping
+	@Cacheable(value = "listar")
 	public Page<PessoaDto> listar(
 			@PageableDefault(sort = "id", direction = Direction.ASC, page = 0, size = 5) Pageable paginacao) {
 		
@@ -75,6 +79,7 @@ public class PessoaController {
 	}
 
 	@PostMapping
+	@Transactional @CacheEvict(value = "listar", allEntries = true)
 	public ResponseEntity<PessoaDto> cadastrar(@RequestBody @Valid PessoaForm form, UriComponentsBuilder uriBuilder) {
 		Pessoa pessoa = form.converter();
 
@@ -83,6 +88,7 @@ public class PessoaController {
 	}
 
 	@PutMapping("/{id}")
+	@Transactional @CacheEvict(value = "listar", allEntries = true)
 	public ResponseEntity<PessoaDto> atualizar(@PathVariable Long id, @RequestBody @Valid PessoaForm form) {
 		Optional<Pessoa> pessoaOpt = this.pessoaRep.findById(id);
 
