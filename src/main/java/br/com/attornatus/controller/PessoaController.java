@@ -1,6 +1,8 @@
 package br.com.attornatus.controller;
 
 import java.net.URI;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import javax.validation.Valid;
@@ -20,9 +22,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import br.com.attornatus.model.Endereco;
 import br.com.attornatus.model.Pessoa;
+import br.com.attornatus.model.PessoaEndereco;
+import br.com.attornatus.model.dto.PessoaDetalhadoDto;
 import br.com.attornatus.model.dto.PessoaDto;
 import br.com.attornatus.model.form.PessoaForm;
+import br.com.attornatus.repository.PessoaEnderecoRepository;
 import br.com.attornatus.repository.PessoaRepository;
 
 @RestController
@@ -32,17 +38,26 @@ public class PessoaController {
 	@Autowired
 	private PessoaRepository pessoaRep;
 	
+	@Autowired
+	private PessoaEnderecoRepository pessoaEnderecoRep;
+	
 	@GetMapping
-	public Page<PessoaDto> listar(@PageableDefault(sort = "id", direction = Direction.ASC, page = 0, size = 3) Pageable paginacao){
+	public Page<PessoaDto> listar(@PageableDefault(sort = "id", direction = Direction.ASC, page = 0, size = 5) Pageable paginacao){
 		Page<Pessoa> pessoas = this.pessoaRep.findAll(paginacao);
 		return PessoaDto.converter(pessoas);
 	}
 	
 	@GetMapping("/{id}")
-	public ResponseEntity<PessoaDto> especifico(@PathVariable Long id){
+	public ResponseEntity<PessoaDetalhadoDto> detalhar(@PathVariable Long id){
 		Optional<Pessoa> pessoa = this.pessoaRep.findById(id);
+		
 		if(pessoa.isPresent()) {
-			return ResponseEntity.ok(new PessoaDto(pessoa.get()));
+			List<PessoaEndereco> pessoaEndereco = this.pessoaEnderecoRep.findIdPessoa(id);
+			List<Endereco> end = new ArrayList<>();
+			for(PessoaEndereco pessoaEnd : pessoaEndereco) {
+				end.add(pessoaEnd.getIdEndereco());
+			}
+			return ResponseEntity.ok(new PessoaDetalhadoDto(pessoa.get(), end));
 		}
 		
 		return ResponseEntity.notFound().build();

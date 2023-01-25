@@ -4,7 +4,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -18,18 +17,15 @@ public class Endereco {
 	private String cep;
 	private String numero;
 	private String cidade;
-	@ManyToOne
-	private Pessoa pessoaId;
 
 	public Endereco() {
 	}
 	
-	public Endereco(String logradouro, String cep, String numero, String cidade, Pessoa pessoa) {
+	public Endereco(String logradouro, String cep, String numero, String cidade) {
 		this.logradouro = logradouro;
 		this.cep = cep;
 		this.numero = numero;
 		this.cidade = cidade;
-		this.pessoaId = pessoa;
 	}
 	
 	public Long getId() {
@@ -72,14 +68,6 @@ public class Endereco {
 		this.cidade = cidade;
 	}
 	
-	public Pessoa getPessoaId() {
-		return pessoaId;
-	}
-
-	public void setPessoaId(Pessoa pessoaId) {
-		this.pessoaId = pessoaId;
-	}
-
 	@Override
 	public String toString() {
 		return "Id: " + id +

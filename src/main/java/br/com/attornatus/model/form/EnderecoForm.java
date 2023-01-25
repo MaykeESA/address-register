@@ -5,8 +5,6 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 import br.com.attornatus.model.Endereco;
-import br.com.attornatus.model.Pessoa;
-import br.com.attornatus.repository.PessoaRepository;
 
 public class EnderecoForm {
 
@@ -32,9 +30,8 @@ public class EnderecoForm {
 		this.idPessoa = idPessoa;
 	}
 
-	public Endereco converter(PessoaRepository pessoaRep) {
-		Pessoa pessoa = pessoaRep.findById(this.getIdPessoa()).get();
-		return new Endereco(this.logradouro, this.cep, this.numero, this.cidade, pessoa);
+	public Endereco converter() {
+		return new Endereco(this.logradouro, this.cep, this.numero, this.cidade);
 	}
 	
 	public String getLogradouro() {

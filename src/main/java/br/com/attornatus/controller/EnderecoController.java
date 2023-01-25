@@ -28,6 +28,7 @@ import br.com.attornatus.model.form.EnderecoForm;
 import br.com.attornatus.repository.EnderecoRepository;
 import br.com.attornatus.repository.PessoaEnderecoRepository;
 import br.com.attornatus.repository.PessoaRepository;
+import br.com.attornatus.service.PersistService;
 
 @RestController
 @RequestMapping("/endereco")
@@ -41,6 +42,9 @@ public class EnderecoController {
 
 	@Autowired
 	private PessoaEnderecoRepository pessoaEndrecoRep;
+	
+	@Autowired
+	private PersistService persistService;
 
 	@GetMapping
 	public Page<EnderecoDto> listar(@PageableDefault(sort = "id", direction = Direction.ASC, page = 0, size = 3) Pageable paginacao) {
@@ -49,28 +53,36 @@ public class EnderecoController {
 	}
 
 	@PostMapping
-	public ResponseEntity<EnderecoDto> cadastrar(@RequestBody @Valid EnderecoForm form,
-			UriComponentsBuilder uriBuilder) {
+	public ResponseEntity<EnderecoDto> cadastrar(@RequestBody @Valid EnderecoForm form, UriComponentsBuilder uriBuilder) {
 		Optional<Pessoa> pessoaOpt = this.pessoaRep.findById(form.getIdPessoa());
+		
 		if (pessoaOpt.isPresent()) {
-			Endereco endereco = form.converter(this.pessoaRep);
 			Pessoa pessoa = pessoaOpt.get();
-			PessoaEndereco pessoaEndereco = new PessoaEndereco(pessoa, endereco);
+			Endereco enderecoForm = form.converter();
 
-			pessoa.addEndereco(endereco);
-			this.enderecoRep.save(endereco);
-			this.pessoaEndrecoRep.save(pessoaEndereco);
-
-			URI uri = uriBuilder.path("endereco/{id}").buildAndExpand(endereco.getId()).toUri();
-			return ResponseEntity.created(uri).body(new EnderecoDto(endereco));
+			List<Endereco> enderecosBd = this.enderecoRep.findByCep(form.getCep());
+			if(enderecosBd != null) {
+				for (Endereco endereco : enderecosBd) {
+					if (endereco.getCep().equals(enderecoForm.getCep())) {
+						if (endereco.getNumero().equals(enderecoForm.getNumero())) {
+							
+							URI uri = this.persistService.uriPessoaEnderecoExiste(pessoa, endereco, this.pessoaEndrecoRep, uriBuilder);
+							return ResponseEntity.created(uri).body(new EnderecoDto(endereco));
+						}
+					}
+				}
+			}
+			
+			URI uri = this.persistService.uriPessoaEnderecoNaoExiste(pessoa, enderecoForm, this.enderecoRep, this.pessoaEndrecoRep, uriBuilder);
+			return ResponseEntity.created(uri).body(new EnderecoDto(enderecoForm));
 		}
-
 		return ResponseEntity.notFound().build();
 	}
 
 	@PostMapping("{idEndereco}/pessoa/{idPessoa}/principal")
 	public ResponseEntity<EnderecoDto> enderecoPrincipal(@PathVariable Long idPessoa, @PathVariable Long idEndereco) {
 		List<PessoaEndereco> pessoaEnderecoIdPessoa = this.pessoaEndrecoRep.findIdPessoa(idPessoa);
+
 		if (pessoaEnderecoIdPessoa != null) {
 			for (PessoaEndereco pe : pessoaEnderecoIdPessoa) {
 				if (pe.getIdEndereco().getId() == idEndereco) {
@@ -79,8 +91,8 @@ public class EnderecoController {
 
 					return ResponseEntity.ok(new EnderecoDto(pe.getIdEndereco()));
 				}
-				return ResponseEntity.notFound().build();
 			}
+			return ResponseEntity.notFound().build();
 		}
 
 		return ResponseEntity.notFound().build();

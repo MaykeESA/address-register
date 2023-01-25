@@ -1,17 +1,11 @@
 package br.com.attornatus.model;
 
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "pessoas")
@@ -22,9 +16,6 @@ public class Pessoa {
 	private Long id;
 	private String nome;
 	private String dataNascimento;
-	@JsonIgnore
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "pessoaId")
-	private List<Endereco> endereco;
 
 	public Pessoa() {
 	}
@@ -32,11 +23,6 @@ public class Pessoa {
 	public Pessoa(String nome, String dataNascimento) {
 		this.nome = nome;
 		this.dataNascimento = dataNascimento;
-		this.endereco = new ArrayList<>();
-	}
-	
-	public void addEndereco(Endereco endereco) {
-		this.endereco.add(endereco);
 	}
 	
 	public Long getId() {
@@ -61,23 +47,6 @@ public class Pessoa {
 
 	public void setDataNascimento(String dataNascimento) {
 		this.dataNascimento = dataNascimento;
-	}
-
-	public List<Endereco> getEndereco() {
-		return endereco;
-	}
-
-	public void setEndereco(List<Endereco> endereco) {
-		this.endereco = endereco;
-	}
-
-	@Override
-	public String toString() {
-		return "Id: " + id + 
-			   "\nNome: " + nome +
-			   "\nData nascimento: " + dataNascimento +
-			   "\nEnderecos: " + endereco +
-			   "\nX----------X";
 	}
 
 }
