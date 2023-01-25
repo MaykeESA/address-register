@@ -5,7 +5,7 @@
 * Avaliação Back-end da Attornatus, nessa avaliação será necessário criar um relacionamento entre duas tabelas, e torna-las funcionais através de endpoints.
 <br>
 
-[Link da aaliação respondida](https://drive.google.com/drive/folders/1x8z6Rx87AE-_uUhG0jtahyAkMALXJU0d?usp=share_link)
+[Link da avaliação respondida](https://drive.google.com/drive/folders/1x8z6Rx87AE-_uUhG0jtahyAkMALXJU0d?usp=share_link)
 <br>
 
 <h2> 💻 Tecnologias: </h2>
