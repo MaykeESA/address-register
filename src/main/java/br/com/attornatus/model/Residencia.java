@@ -9,8 +9,8 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "pessoa_endereco")
-public class PessoaEndereco {
+@Table(name = "residencias")
+public class Residencia {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,12 +21,12 @@ public class PessoaEndereco {
 	@OneToOne
 	@JoinColumn(referencedColumnName = "id")
 	private Endereco idEndereco;
-	private Long idPrincipal;
+	private Long idEnderecoPrincipal;
 	
-	public PessoaEndereco() {
+	public Residencia() {
 	}
 	
-	public PessoaEndereco(Pessoa pessoa, Endereco endereco) {
+	public Residencia(Pessoa pessoa, Endereco endereco) {
 		this.idPessoa = pessoa;
 		this.idEndereco = endereco;
 	}
@@ -55,11 +55,11 @@ public class PessoaEndereco {
 		this.idEndereco = idEndereco;
 	}
 
-	public Long getIdPrincipal() {
-		return idPrincipal;
+	public Long getIdEnderecoPrincipal() {
+		return idEnderecoPrincipal;
 	}
 
-	public void setIdPrincipal(Long idPrincipal) {
-		this.idPrincipal = idPrincipal;
+	public void setIdEnderecoPrincipal(Long idEnderecoPrincipal) {
+		this.idEnderecoPrincipal = idEnderecoPrincipal;
 	}
 }

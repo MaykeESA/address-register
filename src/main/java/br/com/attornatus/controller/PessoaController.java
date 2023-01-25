@@ -24,11 +24,12 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import br.com.attornatus.model.Endereco;
 import br.com.attornatus.model.Pessoa;
-import br.com.attornatus.model.PessoaEndereco;
+import br.com.attornatus.model.Residencia;
 import br.com.attornatus.model.dto.PessoaDetalhadoDto;
 import br.com.attornatus.model.dto.PessoaDto;
 import br.com.attornatus.model.form.PessoaForm;
-import br.com.attornatus.repository.PessoaEnderecoRepository;
+import br.com.attornatus.repository.ResidenciasRepository;
+import br.com.attornatus.service.PersistService;
 import br.com.attornatus.repository.PessoaRepository;
 
 @RestController
@@ -37,50 +38,59 @@ public class PessoaController {
 
 	@Autowired
 	private PessoaRepository pessoaRep;
-	
+
 	@Autowired
-	private PessoaEnderecoRepository pessoaEnderecoRep;
-	
+	private ResidenciasRepository residenciaRep;
+
+	@Autowired
+	private PersistService persistService;
+
 	@GetMapping
-	public Page<PessoaDto> listar(@PageableDefault(sort = "id", direction = Direction.ASC, page = 0, size = 5) Pageable paginacao){
+	public Page<PessoaDto> listar(
+			@PageableDefault(sort = "id", direction = Direction.ASC, page = 0, size = 5) Pageable paginacao) {
+		
 		Page<Pessoa> pessoas = this.pessoaRep.findAll(paginacao);
 		return PessoaDto.converter(pessoas);
 	}
-	
+
 	@GetMapping("/{id}")
-	public ResponseEntity<PessoaDetalhadoDto> detalhar(@PathVariable Long id){
+	public ResponseEntity<PessoaDetalhadoDto> detalhar(@PathVariable Long id) {
 		Optional<Pessoa> pessoa = this.pessoaRep.findById(id);
-		
-		if(pessoa.isPresent()) {
-			List<PessoaEndereco> pessoaEndereco = this.pessoaEnderecoRep.findIdPessoa(id);
-			List<Endereco> end = new ArrayList<>();
-			for(PessoaEndereco pessoaEnd : pessoaEndereco) {
-				end.add(pessoaEnd.getIdEndereco());
+
+		if (pessoa.isPresent()) {
+			List<Residencia> listResidencias = this.residenciaRep.findIdPessoa(id);
+			List<Endereco> enderecos = new ArrayList<>();
+			Long idEnderecoPrincipal = null;
+			for (Residencia residencia : listResidencias) {
+				enderecos.add(residencia.getIdEndereco());
+				
+				if(residencia.getIdEnderecoPrincipal() != null) {
+					idEnderecoPrincipal = residencia.getIdEnderecoPrincipal();
+				}
 			}
-			return ResponseEntity.ok(new PessoaDetalhadoDto(pessoa.get(), end));
+			return ResponseEntity.ok(new PessoaDetalhadoDto(pessoa.get(), enderecos, idEnderecoPrincipal));
 		}
-		
+
 		return ResponseEntity.notFound().build();
 	}
-	
+
 	@PostMapping
-	public ResponseEntity<PessoaDto> cadastrar(@RequestBody @Valid PessoaForm form, UriComponentsBuilder uriBuilder){
+	public ResponseEntity<PessoaDto> cadastrar(@RequestBody @Valid PessoaForm form, UriComponentsBuilder uriBuilder) {
 		Pessoa pessoa = form.converter();
-		this.pessoaRep.save(pessoa);
-		
-		URI uri = uriBuilder.path("/pessoa/{id}").buildAndExpand(pessoa.getId()).toUri();
+
+		URI uri = this.persistService.uriCadastrarPessoa(pessoa, this.pessoaRep, uriBuilder);
 		return ResponseEntity.created(uri).body(new PessoaDto(pessoa));
 	}
-	
+
 	@PutMapping("/{id}")
-	public ResponseEntity<PessoaDto> atualizar(@PathVariable Long id, @RequestBody @Valid PessoaForm form){
+	public ResponseEntity<PessoaDto> atualizar(@PathVariable Long id, @RequestBody @Valid PessoaForm form) {
 		Optional<Pessoa> pessoaOpt = this.pessoaRep.findById(id);
-		
-		if(pessoaOpt.isPresent()) {
+
+		if (pessoaOpt.isPresent()) {
 			Pessoa pessoa = form.atualizar(id, this.pessoaRep);
 			return ResponseEntity.ok(new PessoaDto(pessoa));
 		}
-		
+
 		return ResponseEntity.notFound().build();
 	}
 }

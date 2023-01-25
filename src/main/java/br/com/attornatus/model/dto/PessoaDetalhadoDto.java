@@ -10,11 +10,13 @@ import br.com.attornatus.model.Pessoa;
 public class PessoaDetalhadoDto {
 	private String nome;
 	private String dataNascimento;
+	private Long idEnderecoPrincipal;
 	private List<Endereco> enderecos;
 
-	public PessoaDetalhadoDto(Pessoa pessoa, List<Endereco> enderecos) {
+	public PessoaDetalhadoDto(Pessoa pessoa, List<Endereco> enderecos, Long idResidencia) {
 		this.nome = pessoa.getNome();
 		this.dataNascimento = pessoa.getDataNascimento();
+		this.idEnderecoPrincipal = idResidencia;
 		this.enderecos = enderecos;
 	}
 	
@@ -32,6 +34,10 @@ public class PessoaDetalhadoDto {
 
 	public List<Endereco> getEnderecos() {
 		return enderecos;
+	}
+
+	public Long getIdEnderecoPrincipal() {
+		return idEnderecoPrincipal;
 	}
 	
 }
