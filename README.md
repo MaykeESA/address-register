@@ -1,29 +1,12 @@
-<img height="150em" align="right" src="https://media.licdn.com/dms/image/C4E0BAQHjAdEZqe2NNg/company-logo_200_200/0/1579804295904?e=1682553600&v=beta&t=IBzWNEHhw8MiscQq0a0aXF21wDmLcU_4DNdeS7pe-a4"/>
+# Address Register - 🏠
 
-# Avaliação Attornatus - 📃
-
-* Avaliação Back-end da Attornatus, nessa avaliação será necessário criar um relacionamento entre duas tabelas, e torna-las funcionais através de endpoints.
+* Rest API para registrar endereços de pessoas.
 <br>
 
-[Link da avaliação respondida](https://drive.google.com/drive/folders/1x8z6Rx87AE-_uUhG0jtahyAkMALXJU0d?usp=share_link)
-<br>
-
-<h2> 💻 Tecnologias: </h2>
-
-* Java
-* Spring Boot
-* Spring Data
-
-<br>
 <h2> 🎯 Objetivos: </h2>
 
-* 1 - Criar uma pessoa
-* 2 - Editar uma pessoa 
-* 3 - Consultar uma pessoa 
-* 4 - Listar pessoas 
-* 5 - Criar endereço para pessoa 
-* 6 - Listar endereços da pessoa 
-* 7 - Poder informar qual endereço é o principal da pessoa 
+* Consertar bugs
+* Deleta entidades
 
 <br>
 <h2> 📂 Estrutura de pastas: </h2>
@@ -75,22 +58,13 @@
 <h2> 📌 Endpoints: </h2>
 
 * GET: ```localhost:8080/pessoa```
-  <br>
-  - _Objetivo 4: ✔️_
 
 * GET: ```localhost:8080/pessoa/{id}```
-  <br>
-  - _Objetivo 3: ✔️_
-    <br>
-  - _Objetivo 6: ✔️_
 
 * GET: ```localhost:8080/endereco```
-  <br>
-  - _Objetivo Extra: ✔️_
 
 * POST: ```localhost:8080/pessoa```
-  <br>
-  - _Objetivo 1: ✔️_
+
   ```
   {
     "nome":"Mayke",
@@ -99,13 +73,8 @@
   ```
   
 * POST: ```localhost:8080/endereco/{idEndereco}/pessoa/{idPessoa}/principal```
-  <br>
-  - _Objetivo 7: ✔️_
 
 * POST: ```localhost:8080/endereco```
-  <br>
-  - _Objetivo 5: ✔️_
-
   ```
   {
     "logradouro":"Rua Ayrton Senna",
@@ -115,14 +84,11 @@
     "idPessoa":"1"
   }
   ```
+  
 * PUT: ```localhost:8080/pessoa/{id}```
-  <br>
-  - _Objetivo 2: ✔️_
   ```
   {
     "nome":"Mayke Erick",
     "dataNascimento":"16/03/2003"
   }
   ```
-
-
