@@ -8,8 +8,12 @@
 
 <h2> 🎯 Objetivos: </h2>
 
-* Consertar bugs
-* Deleta entidades
+* Criar uma pessoa
+* Editar uma pessoa
+* Consultar uma pessoa
+* Listar pessoas
+* Criar endereço para pessoa
+* Listar endereços da pessoa
 
 <br>
 <h2> 📂 Estrutura de pastas: </h2>
