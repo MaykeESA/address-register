@@ -3,6 +3,9 @@
 * Rest API para registrar endereços de pessoas.
 <br>
 
+[Link da avaliação](https://drive.google.com/drive/folders/1x8z6Rx87AE-_uUhG0jtahyAkMALXJU0d?usp=sharing)
+<br>
+
 <h2> 🎯 Objetivos: </h2>
 
 * Consertar bugs
