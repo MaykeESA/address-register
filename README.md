@@ -61,7 +61,7 @@
   ```
   {
     "nome":"Mayke",
-    "dataNascimento":"16/03/2003"
+    "dataNascimento":"16-03-2003"
   }
   ```
   
@@ -69,7 +69,7 @@
   ```
   {
     "nome":"Mayke Erick",
-    "dataNascimento":"16/03/2003"
+    "dataNascimento":"16-03-2003"
   }
   ```
 
