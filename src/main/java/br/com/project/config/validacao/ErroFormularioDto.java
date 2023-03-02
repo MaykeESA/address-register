@@ -1,4 +1,4 @@
-package br.com.attornatus.config.validacao;
+package br.com.project.config.validacao;
 
 public class ErroFormularioDto {
 

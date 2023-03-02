@@ -1,11 +1,11 @@
-package br.com.attornatus.model.form;
+package br.com.project.model.form;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
-import br.com.attornatus.model.Pessoa;
-import br.com.attornatus.repository.PessoaRepository;
+import br.com.project.model.Pessoa;
+import br.com.project.repository.PessoaRepository;
 
 public class PessoaForm {
 

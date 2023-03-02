@@ -1,4 +1,4 @@
-package br.com.attornatus.controller;
+package br.com.project.controller;
 
 import java.net.URI;
 import java.util.ArrayList;
@@ -25,15 +25,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import br.com.attornatus.model.Endereco;
-import br.com.attornatus.model.Pessoa;
-import br.com.attornatus.model.Residencia;
-import br.com.attornatus.model.dto.PessoaDetalhadoDto;
-import br.com.attornatus.model.dto.PessoaDto;
-import br.com.attornatus.model.form.PessoaForm;
-import br.com.attornatus.repository.ResidenciasRepository;
-import br.com.attornatus.service.PersistService;
-import br.com.attornatus.repository.PessoaRepository;
+import br.com.project.model.Endereco;
+import br.com.project.model.Pessoa;
+import br.com.project.model.Residencia;
+import br.com.project.model.dto.PessoaDetalhadoDto;
+import br.com.project.model.dto.PessoaDto;
+import br.com.project.model.form.PessoaForm;
+import br.com.project.repository.PessoaRepository;
+import br.com.project.repository.ResidenciasRepository;
+import br.com.project.service.PersistService;
 
 @RestController
 @RequestMapping("/pessoa")

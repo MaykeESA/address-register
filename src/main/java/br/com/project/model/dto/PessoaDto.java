@@ -1,9 +1,9 @@
-package br.com.attornatus.model.dto;
+package br.com.project.model.dto;
 
 
 import org.springframework.data.domain.Page;
 
-import br.com.attornatus.model.Pessoa;
+import br.com.project.model.Pessoa;
 
 public class PessoaDto {
 

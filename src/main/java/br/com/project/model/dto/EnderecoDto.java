@@ -1,8 +1,8 @@
-package br.com.attornatus.model.dto;
+package br.com.project.model.dto;
 
 import org.springframework.data.domain.Page;
 
-import br.com.attornatus.model.Endereco;
+import br.com.project.model.Endereco;
 
 public class EnderecoDto {
 

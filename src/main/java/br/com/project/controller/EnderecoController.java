@@ -1,4 +1,4 @@
-package br.com.attornatus.controller;
+package br.com.project.controller;
 
 import java.net.URI;
 import java.util.List;
@@ -23,15 +23,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import br.com.attornatus.model.Endereco;
-import br.com.attornatus.model.Pessoa;
-import br.com.attornatus.model.Residencia;
-import br.com.attornatus.model.dto.EnderecoDto;
-import br.com.attornatus.model.form.EnderecoForm;
-import br.com.attornatus.repository.EnderecoRepository;
-import br.com.attornatus.repository.ResidenciasRepository;
-import br.com.attornatus.repository.PessoaRepository;
-import br.com.attornatus.service.PersistService;
+import br.com.project.model.Endereco;
+import br.com.project.model.Pessoa;
+import br.com.project.model.Residencia;
+import br.com.project.model.dto.EnderecoDto;
+import br.com.project.model.form.EnderecoForm;
+import br.com.project.repository.EnderecoRepository;
+import br.com.project.repository.PessoaRepository;
+import br.com.project.repository.ResidenciasRepository;
+import br.com.project.service.PersistService;
 
 @RestController
 @RequestMapping("/endereco")
@@ -89,6 +89,12 @@ public class EnderecoController {
 		List<Residencia> residenciaIdPessoa = this.residenciaRep.findIdPessoa(idPessoa);
 
 		if (residenciaIdPessoa != null) {
+			for(Residencia residencia : residenciaIdPessoa) {
+				if(residencia.getIdEnderecoPrincipal() != null) {
+					return ResponseEntity.notFound().build();
+				}
+			}
+			
 			for (Residencia residencia : residenciaIdPessoa) {
 				if (residencia.getIdEndereco().getId() == idEndereco) {
 					

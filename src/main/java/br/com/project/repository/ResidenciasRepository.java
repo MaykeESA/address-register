@@ -1,4 +1,4 @@
-package br.com.attornatus.repository;
+package br.com.project.repository;
 
 import java.util.List;
 
@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
-import br.com.attornatus.model.Residencia;
+import br.com.project.model.Residencia;
 
 @Repository
 public interface ResidenciasRepository extends JpaRepository<Residencia, Long>{

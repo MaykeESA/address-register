@@ -1,4 +1,4 @@
-package br.com.attornatus.model;
+package br.com.project.model;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

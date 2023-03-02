@@ -1,16 +1,16 @@
-package br.com.attornatus.service;
+package br.com.project.service;
 
 import java.net.URI;
 
 import org.springframework.stereotype.Service;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import br.com.attornatus.model.Endereco;
-import br.com.attornatus.model.Pessoa;
-import br.com.attornatus.model.Residencia;
-import br.com.attornatus.repository.EnderecoRepository;
-import br.com.attornatus.repository.PessoaRepository;
-import br.com.attornatus.repository.ResidenciasRepository;
+import br.com.project.model.Endereco;
+import br.com.project.model.Pessoa;
+import br.com.project.model.Residencia;
+import br.com.project.repository.EnderecoRepository;
+import br.com.project.repository.PessoaRepository;
+import br.com.project.repository.ResidenciasRepository;
 
 @Service
 public class PersistService {
@@ -20,7 +20,7 @@ public class PersistService {
 		
 		Residencia residencia = new Residencia(pessoa, endereco);
 		residenciaRep.save(residencia);
-		return uriBuilder.path("endereco/{id}").buildAndExpand(endereco.getId()).toUri();
+		return uriBuilder.path("/endereco/{id}").buildAndExpand(endereco.getId()).toUri();
 	}
 	
 	public URI uriResidenciaNaoExiste(Pessoa pessoa, Endereco enderecoForm, EnderecoRepository enderecoRep, 
@@ -30,7 +30,7 @@ public class PersistService {
 		enderecoRep.save(enderecoForm);
 		residenciaRep.save(residencia);
 		
-		return uriBuilder.path("endereco/{id}").buildAndExpand(enderecoForm.getId()).toUri();
+		return uriBuilder.path("/endereco/{id}").buildAndExpand(enderecoForm.getId()).toUri();
 	}
 	
 	public URI uriCadastrarPessoa(Pessoa pessoa, PessoaRepository pessoaRep, UriComponentsBuilder uriBuilder) {

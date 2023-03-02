@@ -1,10 +1,10 @@
-package br.com.attornatus.model.form;
+package br.com.project.model.form;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
-import br.com.attornatus.model.Endereco;
+import br.com.project.model.Endereco;
 
 public class EnderecoForm {
 

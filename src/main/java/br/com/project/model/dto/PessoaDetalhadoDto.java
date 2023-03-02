@@ -1,11 +1,11 @@
-package br.com.attornatus.model.dto;
+package br.com.project.model.dto;
 
 import java.util.List;
 
 import org.springframework.data.domain.Page;
 
-import br.com.attornatus.model.Endereco;
-import br.com.attornatus.model.Pessoa;
+import br.com.project.model.Endereco;
+import br.com.project.model.Pessoa;
 
 public class PessoaDetalhadoDto {
 	private String nome;
