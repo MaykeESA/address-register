@@ -1,27 +1,15 @@
-# Avaliacao Attornatus - 🏠
+# Address Register - 🏠
 
 * Rest API para registrar endereços de pessoas.
 <br>
-
-[Link da avaliação](https://drive.google.com/drive/folders/1x8z6Rx87AE-_uUhG0jtahyAkMALXJU0d?usp=sharing)
-<br>
-
-<h2> 🎯 Objetivos: </h2>
-
-* Criar uma pessoa
-* Editar uma pessoa
-* Consultar uma pessoa
-* Listar pessoas
-* Criar endereço para pessoa
-* Listar endereços da pessoa
 
 <br>
 <h2> 📂 Estrutura de pastas: </h2>
 
 ```
-├── avaliacao-attornatus
+├── address-register
 |   
-|   br.com.attornatus
+|   br.com.project
 |   |
 │   ├── config.validacao/
 |   |   ├── ErroFormularioDto.java
@@ -53,13 +41,13 @@
 │   ├── service/
 │   │   ├── PersistService.java
 |   |
-|   └── AvaliacaoAttornatusApplication.java
+|   └── AddressRegisterApplication.java
 ```
 
 <br>
 <h2> 📈 Relacionamento: </h2>
 
-<img height="210em" align="center" src="https://media.discordapp.net/attachments/817401092752932916/1067792868082729080/rounded-in-photoretrica.png"/>
+<img height="210em" align="center" src="https://cdn.discordapp.com/attachments/817401092752932916/1080838645109501982/rounded-in-photoretrica.png"/>
 
 <br>
 <h2> 📌 Endpoints: </h2>
