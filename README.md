@@ -56,8 +56,6 @@
 
 * GET: ```localhost:8080/pessoa/{id}```
 
-* GET: ```localhost:8080/endereco```
-
 * POST: ```localhost:8080/pessoa```
 
   ```
@@ -67,7 +65,15 @@
   }
   ```
   
-* POST: ```localhost:8080/endereco/{idEndereco}/pessoa/{idPessoa}/principal```
+* PUT: ```localhost:8080/pessoa/{id}```
+  ```
+  {
+    "nome":"Mayke Erick",
+    "dataNascimento":"16/03/2003"
+  }
+  ```
+
+* GET: ```localhost:8080/endereco```
 
 * POST: ```localhost:8080/endereco```
   ```
@@ -80,10 +86,4 @@
   }
   ```
   
-* PUT: ```localhost:8080/pessoa/{id}```
-  ```
-  {
-    "nome":"Mayke Erick",
-    "dataNascimento":"16/03/2003"
-  }
-  ```
+* POST: ```localhost:8080/endereco/{idEndereco}/pessoa/{idPessoa}/principal```
